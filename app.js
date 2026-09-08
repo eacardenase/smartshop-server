@@ -9,8 +9,10 @@ app.get("/hello", (req, res) => {
     res.send("Hello, World!");
 });
 
-app.get("/movies/action", (req, res) => {
-    res.send("Yeeey, action movies!");
+app.get("/movies/:genre", (req, res) => {
+    let {genre} = req.params;
+
+    res.send(`Yeeey, ${genre} movies!`);
 });
 
 app.listen(8080, () => {
