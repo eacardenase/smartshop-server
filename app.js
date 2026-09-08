@@ -12,6 +12,8 @@ const movies = [
     },
 ];
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
     res.send("Root");
 });
@@ -24,6 +26,12 @@ app.get("/hello", (req, res) => {
 
 app.get("/movies", (req, res) => {
     res.json(movies);
+});
+
+app.post("/movies", (req, res) => {
+    console.log(req.body);
+
+    res.send("OK");
 });
 
 app.get("/movies/:genre", (req, res) => {
