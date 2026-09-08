@@ -27,9 +27,13 @@ app.get("/movies", (req, res) => {
 });
 
 app.get("/movies/:genre", (req, res) => {
-    let {genre} = req.params;
+    const {genre} = req.params;
 
-    res.send(`Yeeey, ${genre} movies!`);
+    const filteredMovies = movies.filter(
+        (movie) => movie.genre.toLowerCase() == genre.toLowerCase(),
+    );
+
+    res.json(filteredMovies);
 });
 
 app.get("/movies/:genre/year/:year", (req, res) => {
