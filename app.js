@@ -1,12 +1,29 @@
 const express = require("express");
 const app = express();
 
+const movies = [
+    {
+        title: "Lord of the Rings",
+        genre: "Fiction",
+    },
+    {
+        title: "Finding Nemo",
+        genre: "Kids",
+    },
+];
+
 app.get("/", (req, res) => {
     res.send("Root");
 });
 
 app.get("/hello", (req, res) => {
-    res.send("Hello, World!");
+    res.json({
+        message: "Hello, World!",
+    });
+});
+
+app.get("/movies", (req, res) => {
+    res.json(movies);
 });
 
 app.get("/movies/:genre", (req, res) => {
