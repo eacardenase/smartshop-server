@@ -1,53 +1,22 @@
 const express = require("express");
-const app = express();
 
-const movies = [
-    {
-        title: "Lord of the Rings",
-        genre: "Fiction",
-    },
-    {
-        title: "Finding Nemo",
-        genre: "Kids",
-    },
-];
+const models = require("./models");
+
+const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Root");
-});
+app.post("/register", (req, res) => {
+    const {username, password} = req.body;
 
-app.get("/hello", (req, res) => {
-    res.json({
-        message: "Hello, World!",
+    const newUser = models.User.create({
+        username,
+        password,
     });
-});
 
-app.get("/movies", (req, res) => {
-    res.json(movies);
-});
-
-app.post("/movies", (req, res) => {
-    console.log(req.body);
-
-    res.send("OK");
-});
-
-app.get("/movies/:genre", (req, res) => {
-    const {genre} = req.params;
-
-    const filteredMovies = movies.filter(
-        (movie) => movie.genre.toLowerCase() == genre.toLowerCase(),
-    );
-
-    res.json(filteredMovies);
-});
-
-app.get("/movies/:genre/year/:year", (req, res) => {
-    const {genre, year} = req.params;
-
-    res.send(`You selected ${genre} and the year is ${year}`);
+    res.status(201).json({
+        success: true,
+    });
 });
 
 app.listen(8080, () => {
