@@ -28,29 +28,36 @@ app.post("/register", registerValidator, async (req, res) => {
         });
     }
 
-    const {username, password} = req.body;
+    try {
+        const {username, password} = req.body;
 
-    const existingUser = await models.User.findOne({
-        where: {
-            username: {[Op.iLike]: username},
-        },
-    });
+        const existingUser = await models.User.findOne({
+            where: {
+                username: {[Op.iLike]: username},
+            },
+        });
 
-    if (existingUser) {
-        return res.json({
+        if (existingUser) {
+            return res.json({
+                success: false,
+                message: "username already taken",
+            });
+        }
+
+        const newUser = models.User.create({
+            username,
+            password,
+        });
+
+        res.status(201).json({
+            success: true,
+        });
+    } catch (error) {
+        res.status(500).json({
             success: false,
-            message: "username already taken",
+            message: "Internal server error.",
         });
     }
-
-    const newUser = models.User.create({
-        username,
-        password,
-    });
-
-    res.status(201).json({
-        success: true,
-    });
 });
 
 app.listen(8080, () => {
