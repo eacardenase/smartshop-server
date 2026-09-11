@@ -1,20 +1,19 @@
 const express = require("express");
-const {Op} = require("sequelize");
-const {body, validationResult} = require("express-validator");
-const bcrypt = require("bcryptjs");
+// const {Op} = require("sequelize");
+// const {body, validationResult} = require("express-validator");
+// const bcrypt = require("bcryptjs");
 
 const models = require("./models");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
 app.use(express.json());
 
-const registerValidator = [
-    body("username", "username cannot be empty").not().isEmpty(),
-    body("password", "password cannot be empty").not().isEmpty(),
-];
+app.use("/api/auth", authRoutes);
 
-app.post("/register", registerValidator, async (req, res) => {
+/*
+app.post("/register", async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -63,6 +62,7 @@ app.post("/register", registerValidator, async (req, res) => {
         });
     }
 });
+*/
 
 app.listen(8080, () => {
     console.log("Server is running");
