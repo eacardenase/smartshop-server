@@ -11,5 +11,6 @@ const registerValidator = [
 ];
 
 router.post("/register", registerValidator, authController.register);
+router.post("/login", registerValidator, authController.login);
 
 module.exports = router;
