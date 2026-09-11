@@ -1,12 +1,12 @@
 const express = require("express");
 
-const authRoutes = require("./routes/auth");
+const routes = require("./routes");
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
+app.use("/api", routes);
 
 app.listen(8080, () => {
     console.log("Server is running");
