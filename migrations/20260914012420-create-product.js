@@ -21,7 +21,7 @@ module.exports = {
             photo_url: {
                 type: Sequelize.STRING,
             },
-            used_id: {
+            user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
