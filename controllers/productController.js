@@ -8,6 +8,28 @@ exports.getAll = async (req, res) => {
     res.json(products);
 };
 
+exports.getMyProducts = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const products = await models.Product.findAll({
+            where: {
+                user_id: userId,
+            },
+        });
+
+        res.json({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+        });
+    }
+};
+
 exports.create = async (req, res) => {
     const errors = validationResult(req);
 
