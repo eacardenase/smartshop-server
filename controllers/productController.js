@@ -3,9 +3,19 @@ const {validationResult} = require("express-validator");
 const models = require("../models");
 
 exports.getAll = async (req, res) => {
-    const products = await models.Product.findAll({});
+    try {
+        const products = await models.Product.findAll({});
 
-    res.json(products);
+        res.json({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+        });
+    }
 };
 
 exports.getMyProducts = async (req, res) => {
